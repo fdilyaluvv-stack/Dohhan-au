@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0105 AU</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.phone{width:390px;height:780px;background:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500') center/cover;position:relative;border-radius:40px;overflow:hidden;border:8px solid #222}
+.screen{width:100%;height:100%;background:rgba(0,0,0,.3);backdrop-filter:blur(8px);position:relative}
+#lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:60px 20px;z-index:10}
+#lock h1{color:#fff;font-size:70px;font-weight:200;margin-top:40px}
+#lock p{color:#fff;margin:10px 0 30px}
+.dots{display:flex;gap:15px;margin:15px 0}
+.dot{width:12px;height:12px;border:2px solid #fff;border-radius:50%}
+.dot.fill{background:#fff}
+.keypad{display:grid;grid-template-columns:repeat(3,80px);gap:15px;margin-top:10px}
+.key{width:80px;height:80px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:28px;cursor:pointer}
+#home{position:absolute;inset:0;padding:20px;display:none;flex-direction:column;justify-content:space-between}
+.apps{display:grid;grid-template-columns:repeat(4,70px);gap:20px;margin-top:80px}
+.app{width:70px;height:70px;background:#fff;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:30px;cursor:pointer}
+.chat-box{position:absolute;inset:0;background:#fff;z-index:20;display:none;flex-direction:column}
+.chat-header{padding:15px;background:#f5f5f5;display:flex;justify-content:space-between}
+.chat-body{flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#ece5dd}
+.bubble{max-width:75%;padding:10px 14px;border-radius:18px;font-size:14px}
+.blue{background:#0b93f6;color:#fff;align-self:flex-end}
+.grey{background:#fff;align-self:flex-start}
+</style>
+</head>
+<body>
+<div class="phone"><div class="screen">
+<div id="lock">
+<h1 id="clock">01:05</h1>
+<p>Monday, January 5 • 🔐 hint: 0105</p>
+<div class="dots"><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div><div class="dot" id="d4"></div></div>
+<p id="msg" style="font-size:12px;color:#ff8a8a;height:15px"></p>
+<div class="keypad">
+<div class="key" onclick="press(1)">1</div><div class="key" onclick="press(2)">2</div><div class="key" onclick="press(3)">3</div>
+<div class="key" onclick="press(4)">4</div><div class="key" onclick="press(5)">5</div><div class="key" onclick="press(6)">6</div>
+<div class="key" onclick="press(7)">7</div><div class="key" onclick="press(8)">8</div><div class="key" onclick="press(9)">9</div>
+<div class="key" style="visibility:hidden"></div><div class="key" onclick="press(0)">0</div><div class="key" onclick="del()">⌫</div>
+</div>
+</div>
+<div id="home">
+<div class="apps">
+<div class="app" onclick="openChat()">💬</div><div class="app">📸</div><div class="app">🐦</div><div class="app">🎵</div>
+</div>
+<p style="color:#fff;text-align:center;font-size:11px;margin-bottom:20px">Dohhan AU • 01:05</p>
+</div>
+<div class="chat-box" id="chat">
+<div class="chat-header"><span onclick="closeChat()">← Back</span><b>Dohoon</b><span>📞</span></div>
+<div class="chat-body">
+<div class="grey bubble">jin kamu dimana? udah jam 1 pagi [01:05]</div>
+<div class="grey bubble">aku nungguin di studio dari jam 10 tadi :(</div>
+<div class="blue bubble">soryy aku ketiduran di ruang latihan 😭</div>
+<div class="grey bubble">...kamu nangis?</div>
+<div class="blue bubble">ngga! cuma ngantuk</div>
+<div class="grey bubble">mana mungkin aku lupa 0105? ada kue di sini. sini cepat.</div>
+<div class="blue bubble">dohoon 😭😭😭😭</div>
+</div>
+</div>
+</div></div>
+<script>
+let input="";const pw="0105";
+function press(n){if(input.length<4){input+=n;update();}if(input.length===4)check();}
+function del(){input=input.slice(0,-1);update();}
+function update(){for(let i=1;i<=4;i++)document.getElementById('d'+i).classList.toggle('fill',i<=input.length);}
+function check(){if(input===pw){document.getElementById('lock').style.display='none';document.getElementById('home').style.display='flex';}else{document.getElementById('msg').innerText="wrong password";setTimeout(()=>{input="";update();document.getElementById('msg').innerText="";},800);}}
+function openChat(){document.getElementById('chat').style.display='flex';}
+function closeChat(){document.getElementById('chat').style.display='none';}
+</script>
+</body>
+</html>
